@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Person from './components/Person.js'
 
-class App extends Component { 
-  state = {
+const App = () => { 
+  let [state, setState] = useState({
     persons: [
       { string: 'X', number: 1 },
       { string: 'Y', number: 2 },
       { string: 'Z', number: 3 },
     ]
-  }
+  })
 
-  shuffleHandler = (newString) => {
+  const shuffleHandler = (newString) => {
     newString = newString || 'W'
-    this.setState({ persons: [
+    setState({ persons: [
         { string: 'X', number: 1 },
         { string: newString, number: 2 },
         { string: 'Z', number: 3 },
@@ -21,8 +21,8 @@ class App extends Component {
     })
   }
 
-  changeHandler = (event) => {
-    this.setState({ persons: [
+  const changeHandler = (event) => {
+    setState({ persons: [
         { string: 'X', number: 1 },
         { string: event.target.value, number: 2 },
         { string: 'Z', number: 3 },
@@ -30,16 +30,16 @@ class App extends Component {
     })
   }
 
-  render() { return (
+  return (
     <div className="App">
       <h1>text</h1>
       <h1>Another text</h1>
-      <button onClick={() => this.shuffleHandler('Q')}>button</button>
-      <Person handlerShuffle={this.shuffleHandler.bind(this, 'P')} string={this.state.persons[0].string} number={this.state.persons[0].number} />
-      <Person handlerChange={this.changeHandler} string={this.state.persons[1].string} number={this.state.persons[1].number} />
-      <Person string={this.state.persons[2].string} number={this.state.persons[2].number} />
+      <button onClick={() => shuffleHandler('Q')}>button</button>
+      <Person handlerShuffle={shuffleHandler.bind(this, 'P')} string={state.persons[0].string} number={state.persons[0].number} />
+      <Person handlerChange={changeHandler} string={state.persons[1].string} number={state.persons[1].number} />
+      <Person string={state.persons[2].string} number={state.persons[2].number} />
     </div>
-  )}
+  )
 }
 
 export default App;
